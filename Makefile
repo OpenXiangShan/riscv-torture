@@ -20,7 +20,8 @@ GITCMT := $(subst $(space),$(gitopt),$(COMMIT))
 cnight rnight crnight csuite rsuite \
 
 gen:
-	$(SBT) 'generator/run $(OPTIONS)'
+	mill generator.run $(OPTIONS)
+	#$(SBT) 'generator/run $(OPTIONS)'
 
 csuite:
 	for i in `ls $(SUITE) | grep .S` ; do echo $$i ; \
