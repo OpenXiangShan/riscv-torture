@@ -1,3 +1,8 @@
+OPTIONS :=
+
+gen:
+	mill generator.run $(OPTIONS)
+
 asm_tests = test.S
 
 RISCV_GCC = riscv64-unknown-elf-gcc
