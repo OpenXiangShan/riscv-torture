@@ -5,7 +5,7 @@ object BuildSettings
 {
   val buildOrganization = "edu.berkeley.cs"
   val buildVersion = "1.1"
-  val buildScalaVersion = "2.11.6"
+  val buildScalaVersion = "2.11.12"
 
   val buildSettings = Defaults.defaultSettings ++ Seq (
     organization := buildOrganization,
