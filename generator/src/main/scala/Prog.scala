@@ -402,16 +402,23 @@ class Prog(memsize: Int, veccfg: Map[String,String], loop : Boolean)
   def code_header(using_fpu: Boolean, using_vec: Boolean, fprnd: Int) =
   {
     "\n" +
-    (if (using_vec) "RVTEST_RV64UV\n"
-     else if (using_fpu) "RVTEST_RV64UF\n"
-     else "RVTEST_RV64U\n") +
-    "RVTEST_CODE_BEGIN\n" +
+    (//if (using_vec) "RVTEST_RV64UV\n"
+     //else if (using_fpu) "RVTEST_RV64UF\n"
+     //else "RVTEST_RV64U\n") +
+     "RVTEST_RV64M\n") +
+    //"RVTEST_CODE_BEGIN\n" +
+    ".section .text.init;\n" +
+    ".align 6;\n" +
+    ".globl _start;\n" +
+    "_start:\n" +
     (if (using_vec) init_vector() else "") + 
     "\n" +
     "\tj test_start\n" +
     "\n" +
     "crash_backward:\n" +
-    "\tRVTEST_FAIL\n" +
+    "\tli a0, 1\n" +
+    "\t.word 0x0000006b  // nemu_trap\n" +
+    //"\tRVTEST_FAIL\n" +
     "\n" +
     "test_start:\n" +
     "\n" +
@@ -450,10 +457,14 @@ class Prog(memsize: Int, veccfg: Map[String,String], loop : Boolean)
     "\tj test_end\n" +
     "\n" +
     "crash_forward:\n" +
-    "\tRVTEST_FAIL\n" +
+    "\tli a0, 1\n" +
+    "\t.word 0x0000006b  // nemu_trap\n" +
+    //"\tRVTEST_FAIL\n" +
     "\n" +
     "test_end:\n" +
-    "\tRVTEST_PASS\n" +
+    "\tli a0, 0\n" +
+    "\t.word 0x0000006b  // nemu_trap\n" +
+    //"\tRVTEST_PASS\n" +
     "\n" +
     "RVTEST_CODE_END\n" +
     "\n"

@@ -1,0 +1,6 @@
+*.*
+*
+!*/
+!/Makefile
+!/run.py
+!.gitignore
