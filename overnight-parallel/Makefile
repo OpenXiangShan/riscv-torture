@@ -12,7 +12,7 @@ asm_tests = test.S
 
 RISCV_GCC = riscv64-unknown-elf-gcc
 RISCV_GCC_OPTS = -nostdlib -nostartfiles -Wa,-march=rv64im
-RISCV_OBJDUMP = riscv64-unknown-elf-objdump --disassemble-all --section=.text --section=.data --section=.bss
+RISCV_OBJDUMP = riscv64-unknown-elf-objdump
 RISCV_OBJCOPY = riscv64-unknown-elf-objcopy -S --set-section-flags .bss=alloc,contents
 ADJUST_VMA = --adjust-vma +0x100000
 
@@ -24,7 +24,7 @@ $(asm_tests_elf): %: $(asm_tests)
 
 $(asm_tests_bin): $(asm_tests_elf)
 	$(RISCV_OBJCOPY) -O binary $(ADJUST_VMA) $< $@
-	$(RISCV_OBJDUMP) $(ADJUST_VMA) $< > test.txt
+	$(RISCV_OBJDUMP) -d $(ADJUST_VMA) $< > test.txt
 
 
 ######### Program Runing #########
