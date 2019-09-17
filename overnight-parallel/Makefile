@@ -32,7 +32,8 @@ $(asm_tests_bin): $(asm_tests_elf)
 PORT ?= 10000
 
 run: $(asm_tests_bin)
-	make -C $(NEMU_HOME) ISA=riscv64 run ARGS="-b $(abspath $(asm_tests_bin)) -p $(PORT)"
+	#make -C $(NEMU_HOME) ISA=riscv64 run ARGS="-b $(abspath $(asm_tests_bin)) -p $(PORT)"
+	make -C $(NOOP_HOME) emu IMAGE="$(abspath $(asm_tests_bin))"
 
 
 ######### Utility #########
