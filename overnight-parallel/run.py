@@ -72,7 +72,9 @@ def worker(n):
     
 
 if __name__ == "__main__":
+    n = int(sys.argv[1])
     os.system("date")
-    for i in range(0, 80):
+    print("#worker = {0}".format(n))
+    for i in range(0, n):
         prepare(i)
         multiprocessing.Process(target = worker, args = (i,)).start()
