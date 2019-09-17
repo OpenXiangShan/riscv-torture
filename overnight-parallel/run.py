@@ -60,8 +60,7 @@ def worker(n):
             os.system('echo "{0}" > {1}/run.log'.format(output, path))
             break
         #print output
-        #line = re.search('total guest instructions = \d+', output).group()
-        line = re.search('instrCnt = \d+', output).group()
+        line = re.search('total guest instructions = \d+', output).group()
         instr = int(re.search('\d+', line).group())
         total_instr += instr
         os.system('echo "pass {0} tests {1} total instructions" > {2}/log.txt'.format(i, total_instr, path))
@@ -72,7 +71,9 @@ def worker(n):
     
 
 if __name__ == "__main__":
+    n = int(sys.argv[1])
     os.system("date")
-    for i in range(0, 80):
+    print("#worker = {0}".format(n))
+    for i in range(0, n):
         prepare(i)
         multiprocessing.Process(target = worker, args = (i,)).start()
