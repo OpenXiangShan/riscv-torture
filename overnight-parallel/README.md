@@ -3,11 +3,11 @@
 
 ## 运行方法
 ```
-python run.sh worker数量
+python run.py worker数量
 ```
 如
 ```
-python run.sh 2
+python run.py 2
 ```
 表示启动2个worker来并行测试.
 
