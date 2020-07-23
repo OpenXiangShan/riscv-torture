@@ -10,11 +10,11 @@ gen:
 
 asm_tests = test.S
 
-RISCV_GCC = riscv64-unknown-elf-gcc
-RISCV_GCC_OPTS = -nostdlib -nostartfiles -Wa,-march=rv64im
-RISCV_OBJDUMP = riscv64-unknown-elf-objdump
-RISCV_OBJCOPY = riscv64-unknown-elf-objcopy -S --set-section-flags .bss=alloc,contents
-ADJUST_VMA = --adjust-vma +0x100000
+RISCV_GCC = riscv64-linux-gnu-gcc
+RISCV_GCC_OPTS = -nostdlib -nostartfiles -Wa,-march=rv64im -Wl,--build-id=none
+RISCV_OBJDUMP = riscv64-linux-gnu-objdump
+RISCV_OBJCOPY = riscv64-linux-gnu-objcopy -S --set-section-flags .bss=alloc,contents
+# ADJUST_VMA = --adjust-vma +0x100000
 
 asm_tests_elf = $(asm_tests:.S=.elf)
 asm_tests_bin = $(asm_tests:.S=.bin)
@@ -32,8 +32,8 @@ $(asm_tests_bin): $(asm_tests_elf)
 PORT ?= 10000
 
 run: $(asm_tests_bin)
-	#make -C $(NEMU_HOME) ISA=riscv64 run ARGS="-b $(abspath $(asm_tests_bin)) -p $(PORT)"
-	make -C $(NOOP_HOME) emu IMAGE="$(abspath $(asm_tests_bin))"
+	#make -C $(NEMU_HOME) ISA=riscv64 run ARGS="-b $(abspath $(asm_tests_bin))"
+	$(MAKE) -C $(NOOP_HOME) emu E=0 IMAGE="$(abspath $(asm_tests_bin))"
 
 
 ######### Utility #########
